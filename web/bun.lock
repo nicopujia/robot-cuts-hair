@@ -1,0 +1,21 @@
+{
+  "lockfileVersion": 2,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "robot-cuts-hair-web",
+      "dependencies": {
+        "@fontsource/alfa-slab-one": "5.0.20",
+        "@fontsource/ibm-plex-mono": "5.0.13",
+        "three": "0.170.0",
+      },
+    },
+  },
+  "packages": {
+    "@fontsource/alfa-slab-one": ["@fontsource/alfa-slab-one@5.0.20", "", {}, "sha512-+yXonGW/xBlUROY/b94y6+DwvvUaxFI9pQTeo/W5KC+SmFqyA9s1MuR85OOlIN4m1dwJ+h3yYLFfTr7oSoP8OA=="],
+
+    "@fontsource/ibm-plex-mono": ["@fontsource/ibm-plex-mono@5.0.13", "", {}, "sha512-gtlMmvk//2AgDEZDFsoL5z9mgW3ZZg/9SC7pIfDwNKp5DtZpApgqd1Fua3HhPwYRIHrT76IQ1tMTzQKLEGtJGQ=="],
+
+    "three": ["three@0.170.0", "", {}, "sha512-FQK+LEpYc0fBD+J8g6oSEyyNzjp+Q7Ks1C568WWaoMRLW+TkNNWmenWeGgJjV105Gd+p/2ql1ZcjYvNiPZBhuQ=="],
+  }
+}

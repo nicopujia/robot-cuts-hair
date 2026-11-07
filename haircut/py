@@ -1,0 +1,6 @@
+#!/bin/zsh
+# Run Python inside the DimOS venv with the haircut folder importable.
+here=${0:A:h}
+args=("$@")
+[[ -f "$1" ]] && args[1]=${1:A}
+cd "$here/../dimos" && PYTHONPATH="$here" exec .venv/bin/python "${args[@]}"

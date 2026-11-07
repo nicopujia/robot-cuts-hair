@@ -1,0 +1,12 @@
+# Cloned separately; see the README
+/dimos/
+
+# Generated
+/install.log
+__pycache__/
+node_modules/
+dist/
+.DS_Store
+
+# An old recording of an earlier version
+/haircut_demo.mp4

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Robot Cuts Hair</title>
+<meta name="description" content="A simulated robot arm gives a seated person a haircut in your browser, with real hair physics, snags and live readouts. Pick a hairstyle, or drive the scissors yourself.">
+<link rel="canonical" href="https://robotcuts.hair/">
+<meta name="theme-color" content="#10302a">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Robot Cuts Hair">
+<meta property="og:url" content="https://robotcuts.hair/">
+<meta property="og:title" content="Robot Cuts Hair">
+<meta property="og:description" content="A simulated robot arm gives a seated person a haircut in your browser, with real hair physics, snags and live readouts. Pick a hairstyle, or drive the scissors yourself.">
+<meta property="og:image" content="https://robotcuts.hair/og.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="A white robot arm holding scissors and a comb over the hair of a man in a barber chair.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Robot Cuts Hair">
+<meta name="twitter:description" content="A simulated robot arm gives a seated person a haircut in your browser, with real hair physics, snags and live readouts.">
+<meta name="twitter:image" content="https://robotcuts.hair/og.jpg">
+<meta name="twitter:image:alt" content="A white robot arm holding scissors and a comb over the hair of a man in a barber chair.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<canvas id="scene" aria-label="3D view of a robot arm cutting hair. Drag to orbit, scroll to zoom, click the hair to cut that row."></canvas>
+
+<header class="sign">
+  <h1>Robot <br>Cuts Hair</h1>
+  <p id="status" role="status">Loading the shop…</p>
+  <div class="pole" id="pole" aria-hidden="true"><span id="pole-fill"></span></div>
+</header>
+
+<details class="inside" id="inside">
+  <summary>Inside the program</summary>
+  <div class="inside-body" id="inside-body"></div>
+</details>
+
+<aside class="panel" aria-label="Controls">
+  <button id="cut-all" class="primary">Give it a haircut</button>
+
+  <div class="group">
+    <span class="label">Or cut one row <small>(or click the hair)</small></span>
+    <div id="rows" class="chips"></div>
+  </div>
+
+  <div class="group">
+    <span class="label">Leave hair this long</span>
+    <div id="heights" class="chips"></div>
+  </div>
+
+  <div class="group">
+    <span class="label">Speed</span>
+    <div id="speeds" class="chips"></div>
+  </div>
+
+  <div class="group">
+    <span class="label">Hairstyle <small>(starts fresh, uncut)</small></span>
+    <div id="styles" class="chips"></div>
+  </div>
+
+  <div class="group">
+    <span class="label">Hair colour</span>
+    <div id="colours" class="swatches"></div>
+  </div>
+
+  <div class="actions">
+    <button id="pause" disabled>Pause</button>
+    <button id="reset">Reset</button>
+    <button id="view">Close-up</button>
+    <button id="overlays" aria-pressed="true">Overlays</button>
+    <button id="drive">Drive it yourself</button>
+    <button id="close-blades" disabled aria-pressed="false">Close blades</button>
+    <button id="drag" class="wide">Drag through hair (bad idea)</button>
+  </div>
+
+  <details class="about">
+    <summary>What's real here?</summary>
+    <p><strong>Real:</strong> the arm's motion. Every move was planned ahead of time by the
+    <a href="https://github.com/dimensionalOS/dimos">DimOS</a> motion planner for a simulated xArm7, with the
+    scanned head and neck and the shoulders as obstacles. This page replays those plans.</p>
+    <p><strong>Modelled on the real mechanics:</strong> the gripper's fingers sit in the scissor rings, so the
+    gripper closing is what closes the blades, at the speed the arm model allows. The arm only moves sideways above
+    the hair, because scissors dragged through hair would snag it. For each snip it goes straight down, lifts the hair on
+    the comb, stops, and closes the blades.</p>
+    <p><strong>Simulated in your browser, as it happens:</strong> every strand the tool or other hair touches. It keeps
+    its length and curl, bends under gravity by real hair's stiffness, and can't pass through the scalp or the tool.
+    Hair is crowded out of full spaces and drags on nearby hair. Move a tool sideways through it and strands catch on the
+    tines, go taut, slide along, or snap at hair's breaking force, and fast-moving hair can knot. Those pull on the arm, and past a
+    limit it holds still. Cutting pushes back on the gripper, and clippings land on the cape, chair, floor or in the hair.</p>
+    <p><strong>Estimates:</strong> the cutting force per hair, the scissors' weight, the arm's pull limit, and how readily
+    hair catches and knots. Torques are holding torques, from the arm model's masses.</p>
+    <p><strong>Left out:</strong> strands interact through a grid, not one by one, so they can still pass through each other
+    and through the thinnest tool parts. The arm follows its planned path exactly, with no bending or control lag. There's no
+    real robot or client, and the scissors and comb are a design that hasn't been built.</p>
+    <p>The DimOS planner isn't running live, so buttons play moves already planned. "Drive it yourself" uses a simple
+    solver in this page, which only keeps the tool off the scalp and doesn't check the rest of the arm.</p>
+    <p>On screen, the yellow dots are hair resting on the comb. The Overlays button hides them.</p>
+    <p><a href="robot/XARM_LICENSE.txt">xArm model licence</a></p>
+    <p>Head: "Infinite, 3D Head Scan" by Lee Perry-Smith, <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>, based on a work at triplegangers.com, via <a href="https://github.com/mrdoob/three.js">three.js</a>; hair and scalp shading added (<a href="head/LeePerrySmith_License.txt">notice</a>).</p>
+  </details>
+</aside>
+
+<div id="error" class="error" hidden></div>
+<script type="module" src="main.js"></script>
+</body>
+</html>
