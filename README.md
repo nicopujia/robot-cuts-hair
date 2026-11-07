@@ -39,7 +39,7 @@ web/deploy.sh
 The site doesn't need this. To plan new moves, clone DimOS next to the `haircut` folder and install it. These plans were made with commit `73bed0714b`:
 
 ```bash
-git clone https://github.com/dimensionalOS/dimos.git && git -C dimos checkout 73bed0714b && cd dimos && uv sync
+GIT_LFS_SKIP_SMUDGE=1 git clone https://github.com/dimensionalOS/dimos.git && git -C dimos checkout 73bed0714b && cd dimos && uv sync --python 3.12 --extra manipulation --inexact
 ```
 
 ## Re-plan the arm's moves
